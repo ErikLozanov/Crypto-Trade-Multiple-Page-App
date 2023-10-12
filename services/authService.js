@@ -1,7 +1,8 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('../lib/jsonwebtoken');
-const SECRET = 'somesecretsecret';
+
+const {SECRET} = require('../constants');
 exports.findByUsername = (username) => User.findOne({username});
 exports.findByEmail= (email) => User.findOne({email});
 
