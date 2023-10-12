@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 
 const routes = require('./routes');
+const {authentication} = require('./middlewares/authenticationMiddleware');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.static('public'));
 // middleware that parses the body after sent form 
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
+app.use(authentication);
 app.use(routes);
 
 mongoose.connect('mongodb://127.0.0.1:27017/crypto');
