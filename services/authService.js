@@ -13,7 +13,15 @@ exports.register = async (username, email, password, repeatPassword) => {
     }
 
     // TODO: Check if user exists
-    const existingUser =await this.findByUsername(username);
+
+    const existingUser = await User.findOne({
+        $or: [
+            {email},
+            {username},
+        ]
+    })
+
+    // const existingUser =await this.findByUsername(username);
     if(existingUser) {
         throw new Error('User already exists!');
     }
@@ -29,11 +37,12 @@ exports.login = async (email,password) => {
     // User exists
     const user = await this.findByEmail(email);
 
+
     if(!user) {
         throw new Error('Invalid email or password!');
     }
     // Validate password
-    const isValid = await bcrypt.compare(user.password, password);
+    const isValid = await bcrypt.compare(password, user.password);
 
     if(!isValid) {
         throw new Error('Invalid email or password!');
@@ -45,7 +54,9 @@ exports.login = async (email,password) => {
         email,
         username: user.username,
     }
-   await jwt.sign(payload, SECRET);
+    const token = await jwt.sign(payload, SECRET);
+
+    return token;
 }
 
 
