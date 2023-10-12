@@ -6,6 +6,8 @@ const app = express();
 
 app.engine('hbs', handlebars.engine({extname: 'hbs'}));
 
+app.set('view engine', 'hbs');
+
 app.listen(5000,() => console.log('Server is running on port 5000...'));
 // static folder that contains all assets like CSS or Images
 app.use(express.static('public'));
