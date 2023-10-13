@@ -13,8 +13,8 @@ router.post('/login',async (req, res) => {
         res.cookie('auth', token);
         
         res.redirect('/');
-    } catch (err) {
-        console.log(err.message);
+    } catch (error) {
+        res.status(404).render('auth/login', {error});
     }
 });
 
