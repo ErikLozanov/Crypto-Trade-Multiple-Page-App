@@ -9,7 +9,7 @@ exports.getErrorMessage = (error) => {
   switch (error.name) {
     case "Error":
       return error.message;
-    case "MongooseError":
+    case "ValidationError":
       return getFirstMongooseError(error);
     default:
       return error.message;
