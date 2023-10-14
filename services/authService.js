@@ -10,7 +10,7 @@ exports.findByEmail= (email) => User.findOne({email});
 exports.register = async (username, email, password, repeatPassword) => {
     // Validate password
     if(password !== repeatPassword) {
-        throw new Error('Password mismatch!');
+        throw new Error('Passwords do not match!');
     }
 
     // TODO: Check if user exists
