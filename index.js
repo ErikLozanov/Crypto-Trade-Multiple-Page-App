@@ -2,7 +2,7 @@ const express = require('express');
 const handlebars = require('express-handlebars');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-
+const PORT = 5000;
 const routes = require('./routes');
 const {authentication} = require('./middlewares/authMiddleware');
 
@@ -25,4 +25,4 @@ mongoose.connect('mongodb://127.0.0.1:27017/crypto')
 .then(() => console.log('DB Connected Successfully!'))
 .catch((err) => console.log(err.message));
 
-app.listen(5000,() => console.log('Server is running on port 5000...'));
+app.listen(PORT,() => console.log('Server is running on port 5000...'));
