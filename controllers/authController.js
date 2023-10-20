@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const authService = require('../services/authService');
 const {isAuth} = require('../middlewares/authMiddleware');
-const {getErrorMessage} = require('./utils/errorUtils');
+const {getErrorMessage} = require('../utils/errorUtils');
 router.get('/login', (req, res) => {
     res.render('auth/login');
 });
