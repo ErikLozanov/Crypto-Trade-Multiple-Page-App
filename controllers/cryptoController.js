@@ -26,8 +26,20 @@ router.post('/create', async (req, res) => {
         res.redirect('/cryptos')
     } catch (err) {
         res.render("crypto/create", {error: getErrorMessage(err)});
-        
     }
 })
+
+router.get('/:cryptoId/details', async (req, res) => {
+    const cryptoId = req.params.cryptoId;
+    try {
+        
+        const crypto = await cryptoService.getOne(cryptoId).lean();
+        res.render('crypto/details', {crypto});
+
+    } catch (err) {
+        res.render("crypto/details", {error: getErrorMessage(err)});
+    }
+
+});
 
 module.exports =  router;
