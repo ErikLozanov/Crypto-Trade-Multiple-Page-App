@@ -31,11 +31,14 @@ router.post('/create', async (req, res) => {
 
 router.get('/:cryptoId/details', async (req, res) => {
     const cryptoId = req.params.cryptoId;
-    try {
-        
-        const crypto = await cryptoService.getOne(cryptoId).lean();
-        res.render('crypto/details', {crypto});
+    const isLogged = req.user?._id;
 
+    try {
+
+        const crypto = await cryptoService.getOne(cryptoId).lean();
+        const isOwner = req.user?._id == crypto.owner._id;
+        console.log(isOwner);
+        res.render('crypto/details', {crypto, isOwner, isLogged});
     } catch (err) {
         res.render("crypto/details", {error: getErrorMessage(err)});
     }
