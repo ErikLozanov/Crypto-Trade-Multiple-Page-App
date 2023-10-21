@@ -33,12 +33,21 @@ router.get('/:cryptoId/details', async (req, res) => {
     const cryptoId = req.params.cryptoId;
     const isLogged = req.user?._id;
 
+
+
     try {
+
+        async function buyCrypto() {
+            const crypto = await cryptoService.getOne(cryptoId).lean();
+
+            crypto['buyCrypto'].push(req.user._id);
+            await cryptoService.buyCrypto(cryptoId, crypto);
+        }
 
         const crypto = await cryptoService.getOne(cryptoId).lean();
         const isOwner = req.user?._id == crypto.owner._id;
-        console.log(isOwner);
-        res.render('crypto/details', {crypto, isOwner, isLogged});
+        const isBought = crypto.buyCrypto.some((cryptoId) => cryptoId === req.user?._id);
+        res.render('crypto/details', {crypto, isOwner, isLogged, buyCrypto, isBought});
     } catch (err) {
         res.render("crypto/details", {error: getErrorMessage(err)});
     }
