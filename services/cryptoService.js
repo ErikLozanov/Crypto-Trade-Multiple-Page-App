@@ -7,3 +7,5 @@ exports.create = (cryptoData) =>  Crypto.create(cryptoData);
 exports.getOne = (cryptoId) => Crypto.findById(cryptoId);
 
 exports.buyCrypto = (cryptoId, crypto) => Crypto.findByIdAndUpdate(cryptoId, crypto);
+
+exports.update = (cryptoId, crypto) => Crypto.findByIdAndUpdate(cryptoId, crypto);

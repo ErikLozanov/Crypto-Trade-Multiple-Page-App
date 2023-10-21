@@ -54,4 +54,19 @@ router.get('/:cryptoId/details', async (req, res) => {
 
 });
 
+router.get('/:cryptoId/details/edit', async (req, res) => {
+    let cryptoId = req.params.cryptoId;
+
+    let crypto = await cryptoService.getOne(cryptoId).lean();
+    res.render('crypto/edit', {crypto});
+})
+router.post('/:cryptoId/details/edit', async (req, res) => {
+    let cryptoId = req.params.cryptoId;
+    let crypto = req.body;
+
+    await cryptoService.update(cryptoId, crypto);
+
+    res.redirect(`/cryptos/${cryptoId}/details`);
+})
+
 module.exports =  router;
