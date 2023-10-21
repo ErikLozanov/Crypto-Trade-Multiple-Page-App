@@ -69,4 +69,12 @@ router.post('/:cryptoId/details/edit', async (req, res) => {
     res.redirect(`/cryptos/${cryptoId}/details`);
 })
 
+router.get('/:cryptoId/details/delete', async (req, res) => {
+    let cryptoId = req.params.cryptoId;
+
+    await cryptoService.delete(cryptoId);
+
+    res.redirect('/cryptos')
+})
+
 module.exports =  router;
