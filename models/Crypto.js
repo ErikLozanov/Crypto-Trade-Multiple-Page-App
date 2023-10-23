@@ -20,7 +20,7 @@ const cryptoSchema = new mongoose.Schema({
     },
     payment: {
         type: String,
-        required: true
+        required: [true,'Payment is required']
     },
     owner: {
         type: mongoose.Types.ObjectId,
